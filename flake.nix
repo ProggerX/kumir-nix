@@ -12,7 +12,7 @@
           pname = "kumir";
           version = "2.1.0-rc11";
           src = pkgs.fetchgit {
-            url = "https://git.niisi.ru/kumir/kumir2.git";
+            url = "https://github.com/a-a-maly/kumir2.git";
             rev = "${version}";
             sha256 = "sha256-WcxFlCpvrnW92XksXhg94EVZdaoHw42D0EK2HIpWVOk=";
             leaveDotGit = true;
