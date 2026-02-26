@@ -4,10 +4,13 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
-  outputs = inputs@{ nixpkgs, flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = nixpkgs.lib.platforms.unix;
-      perSystem = { config, self', inputs', pkgs, system, ... }: {
+  outputs = inputs @ {
+    flake-parts,
+    ...
+  }:
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      systems = ["x86_64-linux" "aarch64-linux"];
+      perSystem = {pkgs, ...}: {
         packages.default = pkgs.stdenv.mkDerivation rec {
           pname = "kumir";
           version = "2.1.0-rc11";
@@ -33,7 +36,7 @@
             libsForQt5.wrapQtAppsHook
             libsForQt5.qttools
           ];
-          buildInputs = with pkgs; [ 
+          buildInputs = with pkgs; [
             zlib.dev
             boost.dev
             llvm.dev
@@ -49,7 +52,6 @@
             "-DUSE_QT=5"
             "-Wno-dev"
           ];
-
         };
         formatter = pkgs.alejandra;
       };
